@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <!-- This CardView will act as our floating Bottom Navigation Bar -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bottom_nav_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:itemIconTint="@color/bottom_nav_colors"
+            app:itemTextColor="@color/bottom_nav_colors"
+            app:menu="@menu/bottom_nav_menu" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- 1. Header Section -->
+    <RelativeLayout
+        android:id="@+id/header_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_white_background"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/textViewGreeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/good_morning"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textViewUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewGreeting"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="1dp"
+            android:text="@string/anderson"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/imageViewProfileIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/user_icon" />
+
+        <ImageView
+            android:id="@+id/imageViewCartIcon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:layout_toStartOf="@id/imageViewProfileIcon"
+            android:src="@drawable/cart_icon" />
+    </RelativeLayout>
+
+    <!-- Main Scrollable Content Area -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header_layout"
+        android:layout_marginBottom="0dp"> <!-- Negative margin to let content slide under the nav bar -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 2. Loyalty Card Section -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/loyalty_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/dark_teal"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/textViewLoyaltyLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Loyalty card"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:id="@+id/textViewLoyaltyStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="4 / 8"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/textViewLoyaltyLabel"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/rounded_white_background"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                        android:weightSum="8">
+                        <!-- These would be generated dynamically in your Java/Kotlin code -->
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/coffee_icon"/>
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/coffee_icon"/>
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/coffee_icon"/>
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/coffee_icon"/>
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/mt_coffee_icon"/>
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/mt_coffee_icon"/>
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/mt_coffee_icon"/>
+                        <ImageView android:layout_width="0dp" android:layout_height="32dp" android:layout_weight="1" android:src="@drawable/mt_coffee_icon"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. Main Content Area with RecyclerView -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_dark_teal_background"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Choose your coffee"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewCoffee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:nestedScrollingEnabled="false"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="2"
+                    tools:listitem="@layout/item_coffee_grid" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</RelativeLayout>

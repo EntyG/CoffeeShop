@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:padding="24dp"
+    tools:context=".OrderSuccessActivity">
+
+    <!-- The "Track My Order" button at the bottom -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/trackOrderButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/button_checkout"
+        android:text="Track My Order"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <!-- A vertical LinearLayout to center the main content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <!-- The success icon -->
+        <ImageView
+            android:id="@+id/successIcon"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/order_success" /> <!-- Make sure you have this icon -->
+
+        <!-- The "Order Success" title -->
+        <TextView
+            android:id="@+id/successTitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Order Success"
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <!-- The descriptive subtitle -->
+        <TextView
+            android:id="@+id/successSubtitleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Your order has been placed successfully.\nFor more details, go to my orders."
+            android:textColor="@android:color/darker_gray"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</RelativeLayout>

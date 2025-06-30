@@ -1,0 +1,7 @@
+<!-- res/drawable/selector_size_medium.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- When checked, use the filled icon -->
+    <item android:state_checked="true" android:drawable="@drawable/hot_selected_icon" />
+    <!-- By default, use the outlined icon -->
+    <item android:drawable="@drawable/hot_icon" />
+</selector>

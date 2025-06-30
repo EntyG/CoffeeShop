@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="Shot"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/shotRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/shotSingle"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/selector_shot_button"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Single"
+            android:textColor="@color/selector_shot_text_color"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/shotDouble"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/selector_shot_button"
+            android:button="@null"
+            android:gravity="center"
+            android:text="Double"
+            android:textColor="@color/selector_shot_text_color"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+</RelativeLayout>

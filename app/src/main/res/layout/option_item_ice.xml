@@ -1,0 +1,51 @@
+<!-- res/layout/option_item_ice.xml (Updated) -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ice"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:layout_centerVertical="true"/>
+
+    <RadioGroup
+        android:id="@+id/iceRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/hot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:button="@drawable/selector_ice_hot" />
+
+        <RadioButton
+            android:id="@+id/lessIce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:button="@drawable/selector_ice_less" />
+
+        <RadioButton
+            android:id="@+id/mediumIce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:button="@drawable/selector_ice_medium" />
+
+        <RadioButton
+            android:id="@+id/muchIce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:button="@drawable/selector_ice_much" />
+
+    </RadioGroup>
+</RelativeLayout>
