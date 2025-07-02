@@ -17,26 +17,51 @@ public class User {
         this.loyaltyStamps = 0;
     }
 
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
+    public String getName() {
+        return name;
+    }
 
-    public String getPhone() { return phone; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public void setPhone(String phone) { this.phone = phone; }
+    public String getPhone() {
+        return phone;
+    }
 
-    public String getEmail() { return email; }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
-    public void setEmail(String email) { this.email = email; }
+    public String getEmail() {
+        return email;
+    }
 
-    public String getAddress() { return address; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public void setAddress(String address) { this.address = address; }
+    public String getAddress() {
+        return address;
+    }
 
-    public int getRewardPoints() { return rewardPoints; }
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
-    public void setRewardPoints(int rewardPoints) { this.rewardPoints = rewardPoints; }
+    public int getRewardPoints() {
+        return rewardPoints;
+    }
 
-    public int getLoyaltyStamps() { return loyaltyStamps; }
+    public void setRewardPoints(int rewardPoints) {
+        this.rewardPoints = rewardPoints;
+    }
 
-    public void setLoyaltyStamps(int loyaltyStamps) { this.loyaltyStamps = loyaltyStamps; }
+    public int getLoyaltyStamps() {
+        return loyaltyStamps;
+    }
+
+    public void setLoyaltyStamps(int loyaltyStamps) {
+        this.loyaltyStamps = loyaltyStamps;
+    }
 }

@@ -36,7 +36,7 @@
             app:cardBackgroundColor="@android:color/white"
             app:cardCornerRadius="12dp"
             app:cardElevation="0dp">
-        <!-- This LinearLayout is the container for our 8 icons -->
+            <!-- This LinearLayout is the container for our 8 icons -->
             <LinearLayout
                 android:id="@+id/loyalty_icons_container"
                 android:layout_width="match_parent"
@@ -48,12 +48,19 @@
 
                 <!-- We will have 8 identical ImageViews for the cups -->
                 <ImageView style="@style/LoyaltyCupIcon" />
+
                 <ImageView style="@style/LoyaltyCupIcon" />
+
                 <ImageView style="@style/LoyaltyCupIcon" />
+
                 <ImageView style="@style/LoyaltyCupIcon" />
+
                 <ImageView style="@style/LoyaltyCupIcon" />
+
                 <ImageView style="@style/LoyaltyCupIcon" />
+
                 <ImageView style="@style/LoyaltyCupIcon" />
+
                 <ImageView style="@style/LoyaltyCupIcon" />
 
             </LinearLayout>

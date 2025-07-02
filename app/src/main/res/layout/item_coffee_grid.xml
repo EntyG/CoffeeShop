@@ -9,8 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:gravity="center"
+        android:orientation="vertical"
         android:padding="16dp">
 
         <ImageView
@@ -25,8 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Cappuccino"
+            android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black"/>
+            android:textStyle="bold" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

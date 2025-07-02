@@ -15,13 +15,23 @@ public class CoffeeProduct {
         this.customizationOptions = options;
     }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public double getBasePrice() { return basePrice; }
+    public double getBasePrice() {
+        return basePrice;
+    }
 
-    public CustomizationOptions getCustomizationOptions() { return customizationOptions; }
+    public CustomizationOptions getCustomizationOptions() {
+        return customizationOptions;
+    }
 
-    public int getImageResource() { return imageResource; }
+    public int getImageResource() {
+        return imageResource;
+    }
 }

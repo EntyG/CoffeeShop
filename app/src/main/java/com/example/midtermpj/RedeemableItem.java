@@ -13,11 +13,19 @@ public class RedeemableItem {
         this.imageResource = imageResource;
     }
 
-    public String getTitle() { return title; }
+    public String getTitle() {
+        return title;
+    }
 
-    public String getValidUntil() { return validUntil; }
+    public String getValidUntil() {
+        return validUntil;
+    }
 
-    public int getPointCost() { return pointCost; }
+    public int getPointCost() {
+        return pointCost;
+    }
 
-    public int getImageResource() { return imageResource; }
+    public int getImageResource() {
+        return imageResource;
+    }
 }

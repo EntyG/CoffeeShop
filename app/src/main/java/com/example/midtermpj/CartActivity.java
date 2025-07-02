@@ -35,7 +35,7 @@ public class CartActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> {
             finish();
         });
-        
+
         setupRecyclerView();
         updateTotalPrice();
 

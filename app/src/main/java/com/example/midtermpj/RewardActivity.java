@@ -58,7 +58,6 @@ public class RewardActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onResume() {
         super.onResume();

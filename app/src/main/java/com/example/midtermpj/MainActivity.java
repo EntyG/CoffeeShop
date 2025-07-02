@@ -1,15 +1,15 @@
 package com.example.midtermpj;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
 
-        View cartButton = findViewById(R.id.imageViewCartIcon);cartButton.setOnClickListener(v -> {
+        View cartButton = findViewById(R.id.imageViewCartIcon);
+        cartButton.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, CartActivity.class);
             startActivity(intent);
         });
@@ -109,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     private void updateHeader() {
         User currentUser = UserRepository.getInstance().getCurrentUser();
         if (currentUser != null) {

@@ -7,7 +7,8 @@ public class CartRepository {
     private static CartRepository instance;
     private final List<CartItem> cartItems = new ArrayList<>();
 
-    private CartRepository() {}
+    private CartRepository() {
+    }
 
     public static synchronized CartRepository getInstance() {
         if (instance == null) {

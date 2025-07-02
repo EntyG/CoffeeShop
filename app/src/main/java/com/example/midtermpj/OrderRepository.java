@@ -7,7 +7,8 @@ public class OrderRepository {
     private static OrderRepository instance;
     private final List<Order> allOrders = new ArrayList<>();
 
-    private OrderRepository() {}
+    private OrderRepository() {
+    }
 
     public static synchronized OrderRepository getInstance() {
         if (instance == null) {

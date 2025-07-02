@@ -15,11 +15,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center_vertical">
+
             <ImageView
                 android:layout_width="16dp"
                 android:layout_height="16dp"
-                android:src="@drawable/order_coffee_icon"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/order_coffee_icon" />
+
             <TextView
                 android:id="@+id/rewardItemsText"
                 android:layout_width="wrap_content"
@@ -31,6 +33,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/rewardDateText"
                 android:layout_width="wrap_content"
@@ -44,15 +47,16 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <TextView
             android:id="@+id/rewardPointText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:text="+ 12 Pts"
-            android:textStyle="bold"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"/>
+            android:textStyle="bold" />
     </RelativeLayout>
 </LinearLayout>

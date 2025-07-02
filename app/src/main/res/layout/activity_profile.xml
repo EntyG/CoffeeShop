@@ -3,29 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@android:color/white"
+    android:orientation="vertical"
     tools:context=".ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:padding="16dp">
+
         <ImageView
             android:id="@+id/backProfileButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/back_icon"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/back_icon" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:text="Profile"
             android:textColor="@android:color/black"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:layout_centerInParent="true"/>
+            android:textStyle="bold" />
     </RelativeLayout>
     <!-- Full Name Section -->
     <include

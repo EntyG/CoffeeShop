@@ -23,8 +23,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"
-        />
+            android:exported="true" />
         <activity
             android:name=".ProductDetail"
             android:parentActivityName=".MainActivity" />
@@ -34,13 +33,16 @@
         <activity
             android:name=".ProfileActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".MyOrdersActivity"
+        <activity
+            android:name=".MyOrdersActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".OrderSuccess" />
-        <activity android:name=".RewardActivity"
+        <activity
+            android:name=".RewardActivity"
             android:parentActivityName=".MainActivity" />
-        <activity android:name=".RedeemActivity"
-            android:parentActivityName=".RewardActivity"/>
+        <activity
+            android:name=".RedeemActivity"
+            android:parentActivityName=".RewardActivity" />
     </application>
 
 </manifest>

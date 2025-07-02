@@ -22,19 +22,33 @@ public class Order {
         this.status = OrderStatus.ONGOING;
     }
 
-    public String getOrderId() { return orderId; }
+    public String getOrderId() {
+        return orderId;
+    }
 
-    public List<CartItem> getItems() { return items; }
+    public List<CartItem> getItems() {
+        return items;
+    }
 
-    public double getTotalPrice() { return totalPrice; }
+    public double getTotalPrice() {
+        return totalPrice;
+    }
 
-    public Date getOrderDate() { return orderDate; }
+    public Date getOrderDate() {
+        return orderDate;
+    }
 
-    public String getShippingAddress() { return shippingAddress; }
+    public String getShippingAddress() {
+        return shippingAddress;
+    }
 
-    public OrderStatus getStatus() { return status; }
+    public OrderStatus getStatus() {
+        return status;
+    }
 
-    public void setStatus(OrderStatus status) { this.status = status; }
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
 
     public int getPointsEarned() {
         return pointsEarned;
