@@ -5,13 +5,15 @@ public class UserRepository {
     private final User currentUser;
 
     private UserRepository() {
-        // Initialize with default user data
         currentUser = new User(
                 "BroccoLee",
                 "0338391647",
                 "nhut6653@gmail.com",
                 "Viet Nam"
         );
+
+        currentUser.setRewardPoints(2750);
+        currentUser.setLoyaltyStamps(4);
     }
 
     public static synchronized UserRepository getInstance() {

@@ -34,44 +34,18 @@
         android:id="@+id/header_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_white_background"
-        android:padding="24dp">
+        android:background="@drawable/rounded_white_background">
 
         <TextView
-            android:id="@+id/textViewGreeting"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/good_morning"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textViewUserName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewGreeting"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="1dp"
-            android:text="@string/anderson"
+            android:gravity="center"
+            android:padding="24dp"
+            android:text="Rewards"
             android:textColor="@android:color/black"
-            android:textSize="22sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/imageViewProfileIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/user_icon" />
-
-        <ImageView
-            android:id="@+id/imageViewCartIcon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="16dp"
-            android:layout_toStartOf="@id/imageViewProfileIcon"
-            android:src="@drawable/cart_icon" />
     </RelativeLayout>
 
     <!-- Main Scrollable Content Area -->
@@ -96,36 +70,30 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"/>
 
-            <!-- 3. Main Content Area with RecyclerView -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <include
+                android:id="@+id/my_points_card_view"
+                layout="@layout/my_points_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rounded_dark_teal_background"
-                android:orientation="vertical"
-                android:padding="24dp">
+                android:layout_marginBottom="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Choose your coffee"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewCoffee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:nestedScrollingEnabled="false"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2"
-                    tools:listitem="@layout/item_coffee_grid" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"/>
-            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="History"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:layout_marginStart="16dp" />
+            <!-- 3. Main Content Area with RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rewardsRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                tools:listitem="@layout/history_rewards"
+                android:layout_weight="1"
+                android:padding="8dp"/>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

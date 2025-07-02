@@ -32,8 +32,6 @@
         android:layout_weight="1"
         android:padding="8dp"/>
 
-    <!-- You would typically have a BottomNavigationView here if this were a fragment -->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/bottom_nav_card"
         android:layout_width="match_parent"

@@ -6,4 +6,11 @@
     </style>
 
     <style name="Theme.MidtermPj" parent="Base.Theme.MidtermPj" />
+
+    <style name="LoyaltyCupIcon">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">32dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:src">@drawable/mt_coffee_icon</item>
+    </style>
 </resources>

@@ -37,6 +37,10 @@
         <activity android:name=".MyOrdersActivity"
             android:parentActivityName=".MainActivity" />
         <activity android:name=".OrderSuccess" />
+        <activity android:name=".RewardActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".RedeemActivity"
+            android:parentActivityName=".RewardActivity"/>
     </application>
 
 </manifest>

@@ -2,15 +2,12 @@ package com.example.midtermpj;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class OrderRepository {
     private static OrderRepository instance;
     private final List<Order> allOrders = new ArrayList<>();
 
-    private OrderRepository() {
-        // You can add dummy data here for testing
-    }
+    private OrderRepository() {}
 
     public static synchronized OrderRepository getInstance() {
         if (instance == null) {
@@ -20,7 +17,7 @@ public class OrderRepository {
     }
 
     public void addOrder(Order order) {
-        allOrders.add(order);
+        allOrders.add(0, order);
     }
 
     public List<Order> getOrdersByStatus(OrderStatus status) {

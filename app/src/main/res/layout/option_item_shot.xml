@@ -19,28 +19,6 @@
         android:layout_alignParentEnd="true"
         android:orientation="horizontal">
 
-        <RadioButton
-            android:id="@+id/shotSingle"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/selector_shot_button"
-            android:button="@null"
-            android:gravity="center"
-            android:text="Single"
-            android:textColor="@color/selector_shot_text_color"
-            android:textSize="16sp" />
-
-        <RadioButton
-            android:id="@+id/shotDouble"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
-            android:background="@drawable/selector_shot_button"
-            android:button="@null"
-            android:gravity="center"
-            android:text="Double"
-            android:textColor="@color/selector_shot_text_color"
-            android:textSize="16sp" />
     </RadioGroup>
 
 </RelativeLayout>

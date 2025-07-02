@@ -18,26 +18,5 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:orientation="horizontal">
-
-        <!-- NOTE: The 'android:button' now points to the selector -->
-        <RadioButton
-            android:id="@+id/smallSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:button="@drawable/selector_size_small" />
-
-        <RadioButton
-            android:id="@+id/mediumSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:button="@drawable/selector_size_medium" />
-
-        <RadioButton
-            android:id="@+id/largeSize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:button="@drawable/selector_size_large" />
     </RadioGroup>
 </RelativeLayout>

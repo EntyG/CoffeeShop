@@ -12,10 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.function.Consumer;
 
 public class ProfileActivity extends AppCompatActivity {
-
     private User currentUser;
-
-    // View references for each section's value TextView
     private TextView nameValue, phoneValue, emailValue, addressValue;
 
     @Override
@@ -23,10 +20,8 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
-        // Get the current user from our central repository
         currentUser = UserRepository.getInstance().getCurrentUser();
 
-        // Set up each profile section
         setupProfileSections();
 
         View backButton = findViewById(R.id.backProfileButton);
@@ -36,7 +31,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void setupProfileSections() {
-        // --- Name Section ---
         View nameSection = findViewById(R.id.profile_name_section);
         ImageView nameIcon = nameSection.findViewById(R.id.profile_item_icon);
         TextView nameLabel = nameSection.findViewById(R.id.profile_item_label);
@@ -47,12 +41,11 @@ public class ProfileActivity extends AppCompatActivity {
         nameValue.setText(currentUser.getName());
         nameSection.findViewById(R.id.profile_item_edit_button).setOnClickListener(v -> {
             showEditDialog("Edit Full Name", currentUser.getName(), InputType.TYPE_CLASS_TEXT, newName -> {
-                currentUser.setName(newName); // Update data model
-                nameValue.setText(newName);   // Update UI
+                currentUser.setName(newName);
+                nameValue.setText(newName);
             });
         });
 
-        // --- Phone Section ---
         View phoneSection = findViewById(R.id.profile_phone_section);
         ImageView phoneIcon = phoneSection.findViewById(R.id.profile_item_icon);
         TextView phoneLabel = phoneSection.findViewById(R.id.profile_item_label);
@@ -68,7 +61,6 @@ public class ProfileActivity extends AppCompatActivity {
             });
         });
 
-        // --- Email Section ---
         View emailSection = findViewById(R.id.profile_email_section);
         ImageView emailIcon = emailSection.findViewById(R.id.profile_item_icon);
         TextView emailLabel = emailSection.findViewById(R.id.profile_item_label);
@@ -84,7 +76,6 @@ public class ProfileActivity extends AppCompatActivity {
             });
         });
 
-        // --- Address Section ---
         View addressSection = findViewById(R.id.profile_address_section);
         ImageView addressIcon = addressSection.findViewById(R.id.profile_item_icon);
         TextView addressLabel = addressSection.findViewById(R.id.profile_item_label);
@@ -101,27 +92,17 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * A reusable helper method to show an editing dialog.
-     * @param title The title of the dialog (e.g., "Edit Full Name").
-     * @param currentValue The current value to show in the EditText.
-     * @param inputType The type of keyboard to show (e.g., text, phone).
-     * @param onSave A callback function that will be executed when the user clicks "Save".
-     */
     private void showEditDialog(String title, String currentValue, int inputType, Consumer<String> onSave) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(title);
 
-        // Set up the input
         final EditText input = new EditText(this);
         input.setInputType(inputType);
         input.setText(currentValue);
         builder.setView(input);
 
-        // Set up the buttons
         builder.setPositiveButton("Save", (dialog, which) -> {
             String newValue = input.getText().toString();
-            // Call the callback function with the new value
             onSave.accept(newValue);
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());

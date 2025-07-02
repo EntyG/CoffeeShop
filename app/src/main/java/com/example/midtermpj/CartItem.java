@@ -3,8 +3,8 @@ package com.example.midtermpj;
 public class CartItem {
     private final CoffeeProduct coffeeProduct;
     private int quantity;
-    private final String selectedOptionsDescription; // e.g., "single | iced | medium"
-    private final double finalPrice; // Price for one item with options
+    private final String selectedOptionsDescription;
+    private final double finalPrice;
 
     public CartItem(CoffeeProduct coffeeProduct, int quantity, String selectedOptionsDescription, double finalPrice) {
         this.coffeeProduct = coffeeProduct;
@@ -13,8 +13,8 @@ public class CartItem {
         this.finalPrice = finalPrice;
     }
 
-    // Getters
     public CoffeeProduct getCoffeeProduct() { return coffeeProduct; }
+
     public int getQuantity() { return quantity; }
 
     public void setQuantity(int quantity) { this.quantity = quantity; }
@@ -23,6 +23,8 @@ public class CartItem {
         return this.coffeeProduct.equals(other.coffeeProduct) &&
                 this.selectedOptionsDescription.equals(other.selectedOptionsDescription);
     }
+
     public String getSelectedOptionsDescription() { return selectedOptionsDescription; }
+
     public double getFinalPrice() { return finalPrice; }
 }

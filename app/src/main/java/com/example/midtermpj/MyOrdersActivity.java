@@ -1,5 +1,6 @@
 package com.example.midtermpj;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -16,7 +17,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyOrdersActivity extends AppCompatActivity {
-
     private TabLayout tabLayout;
     private RecyclerView recyclerView;
     private OrderAdapter adapter;
@@ -35,7 +35,6 @@ public class MyOrdersActivity extends AppCompatActivity {
         setupRecyclerView();
         setupTabLayout();
 
-        // Load the initial "On going" list
         filterAndDisplayOrders(OrderStatus.ONGOING);
 
         bottomNav = findViewById(R.id.bottom_navigation);
@@ -45,7 +44,8 @@ public class MyOrdersActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Refresh the greeting in case the user name was changed
+        tabLayout.selectTab(tabLayout.getTabAt(0));
+        filterAndDisplayOrders(OrderStatus.ONGOING);
         bottomNav.setSelectedItemId(R.id.nav_orders);
     }
 
@@ -56,7 +56,6 @@ public class MyOrdersActivity extends AppCompatActivity {
             int itemId = item.getItemId();
 
             if (itemId == currentNavId) {
-                // User clicked the icon for the current screen. Do nothing.
                 return true;
             }
 
@@ -66,16 +65,12 @@ public class MyOrdersActivity extends AppCompatActivity {
             } else if (itemId == R.id.nav_orders) {
                 intent = new Intent(getApplicationContext(), MyOrdersActivity.class);
             } else if (itemId == R.id.nav_rewards) {
-                intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                intent = new Intent(getApplicationContext(), RewardActivity.class);
             }
 
             if (intent != null) {
-                // --- THIS IS THE KEY FIX ---
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                // --- END OF FIX ---
                 startActivity(intent);
-
-                // Optional: Remove the screen-changing animation
                 overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
             }
             return true;
@@ -87,47 +82,54 @@ public class MyOrdersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 
-        // --- IMPLEMENT SWIPE-TO-DELETE HERE ---
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false; // We don't need drag-and-drop
+                return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                // Get the position of the swiped item
                 int position = viewHolder.getAdapterPosition();
 
-                // Get the Order object from our displayed list
                 Order orderToMove = displayedOrders.get(position);
 
-                // --- THE CORE LOGIC ---
-                // 1. Change the order's status to HISTORY
                 orderToMove.setStatus(OrderStatus.HISTORY);
 
-                // 2. Remove the item from the *currently visible list*
-                displayedOrders.remove(position);
+                processRewardsForCompletedOrder(orderToMove);
 
-                // 3. Notify the adapter that the item has been removed from the view
+                displayedOrders.remove(position);
                 adapter.notifyItemRemoved(position);
 
-                // 4. (Optional) Show a confirmation message
                 Toast.makeText(MyOrdersActivity.this, "Order moved to History", Toast.LENGTH_SHORT).show();
             }
 
-            /**
-             * --- IMPORTANT IMPROVEMENT ---
-             * This method disables the swipe gesture on the "History" tab.
-             */
+            private void processRewardsForCompletedOrder(Order order) {
+                User currentUser = UserRepository.getInstance().getCurrentUser();
+
+                int pointsFromOrder = (int) (order.getTotalPrice() * 10);
+
+                int newStampCount = currentUser.getLoyaltyStamps() + 1;
+
+                order.setPointsEarned(pointsFromOrder);
+
+                int bonusPoints = 0;
+                if (newStampCount >= 8) {
+                    bonusPoints = 1000;
+                    newStampCount = 0;
+                }
+
+                int finalPoints = currentUser.getRewardPoints() + pointsFromOrder + bonusPoints;
+
+                currentUser.setRewardPoints(finalPoints);
+                currentUser.setLoyaltyStamps(newStampCount);
+            }
+
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                // Check which tab is currently selected
                 if (tabLayout.getSelectedTabPosition() == 0) {
-                    // If on the "On going" tab, allow swiping to the left
                     return super.getSwipeDirs(recyclerView, viewHolder);
                 } else {
-                    // If on the "History" tab, disable swiping by returning 0
                     return 0;
                 }
             }
@@ -159,15 +161,12 @@ public class MyOrdersActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
-            // ... onTabUnselected and onTabReselected can be left empty
         });
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void filterAndDisplayOrders(OrderStatus status) {
-        // Get the filtered list from the repository
         List<Order> filteredOrders = OrderRepository.getInstance().getOrdersByStatus(status);
-
-        // Update the adapter's data
         displayedOrders.clear();
         displayedOrders.addAll(filteredOrders);
         adapter.notifyDataSetChanged();

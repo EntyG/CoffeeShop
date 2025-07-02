@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class CartActivity extends AppCompatActivity {
-
     private RecyclerView cartRecyclerView;
     private CartAdapter cartAdapter;
     private List<CartItem> cartItems;
@@ -29,10 +28,8 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        // Don't forget to declare this activity in AndroidManifest.xml!
-
         cartRecyclerView = findViewById(R.id.cartRecyclerView);
-        totalPriceText = findViewById(R.id.totalAmountTextCart); // Make sure this ID exists in your layout
+        totalPriceText = findViewById(R.id.totalAmountTextCart);
 
         View backButton = findViewById(R.id.backCartButton);
         backButton.setOnClickListener(v -> {
@@ -42,7 +39,6 @@ public class CartActivity extends AppCompatActivity {
         setupRecyclerView();
         updateTotalPrice();
 
-        // Inside your CartActivity's checkout button listener...
         AppCompatButton checkoutButton = findViewById(R.id.checkoutButton);
         checkoutButton.setOnClickListener(v -> {
             List<CartItem> items = CartRepository.getInstance().getCartItems();
@@ -58,13 +54,10 @@ public class CartActivity extends AppCompatActivity {
             OrderRepository.getInstance().addOrder(newOrder);
             CartRepository.getInstance().clearCart();
 
-            // --- THIS IS THE CHANGE ---
-            // Instead of going to MyOrdersActivity, go to the new OrderSuccessActivity
             Intent intent = new Intent(CartActivity.this, OrderSuccess.class);
             startActivity(intent);
-            // --- END OF CHANGE ---
 
-            finish(); // Close the cart screen as before
+            finish();
         });
     }
 
@@ -74,24 +67,20 @@ public class CartActivity extends AppCompatActivity {
         cartRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cartRecyclerView.setAdapter(cartAdapter);
 
-        // --- IMPLEMENT SWIPE-TO-DELETE HERE ---
         ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                return false; // We don't need drag-and-drop
+                return false;
             }
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
 
-                // 1. Remove item from repository
                 CartRepository.getInstance().removeItem(position);
 
-                // 2. Notify the adapter
                 cartAdapter.notifyItemRemoved(position);
 
-                // 3. IMPORTANT: Update the total price
                 updateTotalPrice();
             }
         };

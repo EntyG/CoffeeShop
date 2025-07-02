@@ -17,8 +17,6 @@ public class CartRepository {
     }
 
     public void addItem(CartItem item) {
-        // Check if the item already exists in the cart
-
         boolean itemExists = false;
         for (CartItem existingItem : cartItems) {
             if (existingItem.sameItem(item)) {
