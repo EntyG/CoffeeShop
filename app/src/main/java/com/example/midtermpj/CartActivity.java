@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -43,21 +45,31 @@ public class CartActivity extends AppCompatActivity {
         checkoutButton.setOnClickListener(v -> {
             List<CartItem> items = CartRepository.getInstance().getCartItems();
             double totalPrice = CartRepository.getInstance().calculateTotalPrice();
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            String userAddress = UserRepository.getInstance().getCurrentUser().getAddress();
 
             if (items.isEmpty()) {
                 Toast.makeText(this, "Your cart is empty.", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            String userAddress = UserRepository.getInstance().getCurrentUser().getAddress();
             Order newOrder = new Order(new ArrayList<>(items), totalPrice, userAddress);
-            OrderRepository.getInstance().addOrder(newOrder);
-            CartRepository.getInstance().clearCart();
+            newOrder.setUserId(userId);
 
-            Intent intent = new Intent(CartActivity.this, OrderSuccess.class);
-            startActivity(intent);
+            OrderRepository.getInstance().addOrder(newOrder, new OrderRepository.OnDocumentWriteListener() {
+                @Override
+                public void onSuccess() {
+                    CartRepository.getInstance().clearCart();
+                    Intent intent = new Intent(CartActivity.this, OrderSuccess.class);
+                    startActivity(intent);
+                    finish();
+                }
 
-            finish();
+                @Override
+                public void onFailure(Exception e) {
+                    Toast.makeText(CartActivity.this, "Failed to place order: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
         });
     }
 

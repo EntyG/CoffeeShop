@@ -48,7 +48,7 @@ public class RewardActivity extends AppCompatActivity {
     }
 
     private void setupRecyclerView() {
-        List<Order> completedOrders = OrderRepository.getInstance().getOrdersByStatus(OrderStatus.HISTORY);
+        List<Order> completedOrders = OrderRepository.getInstance().getOrdersByStatus("HISTORY");
 
         historyAdapter = new RewardHistoryAdapter(completedOrders);
         rewardsRecyclerView.setLayoutManager(new LinearLayoutManager(this));

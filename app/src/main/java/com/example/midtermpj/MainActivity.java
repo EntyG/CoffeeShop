@@ -1,5 +1,6 @@
 package com.example.midtermpj;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -114,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     private void updateHeader() {
         User currentUser = UserRepository.getInstance().getCurrentUser();
         if (currentUser != null) {
-            userNameTextView.setText(currentUser.getName());
+            userNameTextView.setText(currentUser.getUserName());
             View loyaltyCard = findViewById(R.id.loyalty_card_view);
             updateLoyaltyCard(loyaltyCard, currentUser.getLoyaltyStamps());
         }

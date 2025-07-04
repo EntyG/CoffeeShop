@@ -94,6 +94,9 @@
                 android:layout_weight="1"
                 android:padding="8dp"
                 tools:listitem="@layout/history_rewards" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="80dp" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

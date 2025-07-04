@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +38,7 @@ public class MyOrdersActivity extends AppCompatActivity {
         setupRecyclerView();
         setupTabLayout();
 
-        filterAndDisplayOrders(OrderStatus.ONGOING);
+        filterAndDisplayOrders("ONGOING");
 
         bottomNav = findViewById(R.id.bottom_navigation);
         setupBottomNavigation(bottomNav, R.id.nav_orders);
@@ -46,7 +48,7 @@ public class MyOrdersActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         tabLayout.selectTab(tabLayout.getTabAt(0));
-        filterAndDisplayOrders(OrderStatus.ONGOING);
+        filterAndDisplayOrders("ONGOING");
         bottomNav.setSelectedItemId(R.id.nav_orders);
     }
 
@@ -95,9 +97,8 @@ public class MyOrdersActivity extends AppCompatActivity {
 
                 Order orderToMove = displayedOrders.get(position);
 
-                orderToMove.setStatus(OrderStatus.HISTORY);
-
                 processRewardsForCompletedOrder(orderToMove);
+                OrderRepository.getInstance().updateOrderStatusAndPointsEarned(orderToMove, "HISTORY", (int) (orderToMove.getTotalPrice() * 10));
 
                 displayedOrders.remove(position);
                 adapter.notifyItemRemoved(position);
@@ -107,6 +108,7 @@ public class MyOrdersActivity extends AppCompatActivity {
 
             private void processRewardsForCompletedOrder(Order order) {
                 User currentUser = UserRepository.getInstance().getCurrentUser();
+                String currentUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                 int pointsFromOrder = (int) (order.getTotalPrice() * 10);
 
@@ -124,6 +126,14 @@ public class MyOrdersActivity extends AppCompatActivity {
 
                 currentUser.setRewardPoints(finalPoints);
                 currentUser.setLoyaltyStamps(newStampCount);
+                updateFieldInFirestore(currentUserId, "rewardPoints", finalPoints);
+                updateFieldInFirestore(currentUserId, "loyaltyStamps", newStampCount);
+            }
+
+            private void updateFieldInFirestore(String currentUserId, String field, Object value) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                // Firebase is smart enough to handle Integers, Strings, etc. correctly.
+                db.collection("users").document(currentUserId).update(field, value);
             }
 
             @Override
@@ -147,9 +157,9 @@ public class MyOrdersActivity extends AppCompatActivity {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition() == 0) {
-                    filterAndDisplayOrders(OrderStatus.ONGOING);
+                    filterAndDisplayOrders("ONGOING");
                 } else {
-                    filterAndDisplayOrders(OrderStatus.HISTORY);
+                    filterAndDisplayOrders("HISTORY");
                 }
             }
 
@@ -166,7 +176,7 @@ public class MyOrdersActivity extends AppCompatActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void filterAndDisplayOrders(OrderStatus status) {
+    private void filterAndDisplayOrders(String status) {
         List<Order> filteredOrders = OrderRepository.getInstance().getOrdersByStatus(status);
         displayedOrders.clear();
         displayedOrders.addAll(filteredOrders);

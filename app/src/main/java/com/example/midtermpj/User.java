@@ -1,28 +1,30 @@
 package com.example.midtermpj;
 
 public class User {
-    private String name;
+    private String username;
     private String phone;
     private String email;
     private String address;
     private int rewardPoints;
     private int loyaltyStamps;
 
-    public User(String name, String phone, String email, String address) {
-        this.name = name;
+    public User() {}
+
+    public User(String uid, String name, String phone, String email, String address, int rewardPoints, int loyaltyStamps) {
+        this.username = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.rewardPoints = 0;
-        this.loyaltyStamps = 0;
+        this.rewardPoints = rewardPoints;
+        this.loyaltyStamps = loyaltyStamps;
     }
 
-    public String getName() {
-        return name;
+    public String getUserName() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUserName(String name) {
+        this.username = name;
     }
 
     public String getPhone() {

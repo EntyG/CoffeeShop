@@ -43,6 +43,9 @@
         <activity
             android:name=".RedeemActivity"
             android:parentActivityName=".RewardActivity" />
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".SignUpActivity"
+            android:parentActivityName=".LoginActivity"/>
     </application>
 
 </manifest>
