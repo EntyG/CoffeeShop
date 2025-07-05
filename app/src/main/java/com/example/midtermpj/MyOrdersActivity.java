@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -94,16 +95,20 @@ public class MyOrdersActivity extends AppCompatActivity {
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
-
+                int selectedTabPosition = tabLayout.getSelectedTabPosition();
                 Order orderToMove = displayedOrders.get(position);
+                if (selectedTabPosition == 0) {
+                    processRewardsForCompletedOrder(orderToMove);
+                    OrderRepository.getInstance().updateOrderStatusAndPointsEarned(orderToMove, "HISTORY", (int) (orderToMove.getTotalPrice() * 10));
 
-                processRewardsForCompletedOrder(orderToMove);
-                OrderRepository.getInstance().updateOrderStatusAndPointsEarned(orderToMove, "HISTORY", (int) (orderToMove.getTotalPrice() * 10));
+                    displayedOrders.remove(position);
+                    adapter.notifyItemRemoved(position);
 
-                displayedOrders.remove(position);
-                adapter.notifyItemRemoved(position);
-
-                Toast.makeText(MyOrdersActivity.this, "Order moved to History", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyOrdersActivity.this, "Order moved to History", Toast.LENGTH_SHORT).show();
+                } else if (selectedTabPosition == 1) {
+                    showReorderDialog(position);
+                    adapter.notifyItemChanged(position);
+                }
             }
 
             private void processRewardsForCompletedOrder(Order order) {
@@ -132,22 +137,58 @@ public class MyOrdersActivity extends AppCompatActivity {
 
             private void updateFieldInFirestore(String currentUserId, String field, Object value) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                // Firebase is smart enough to handle Integers, Strings, etc. correctly.
                 db.collection("users").document(currentUserId).update(field, value);
             }
 
             @Override
             public int getSwipeDirs(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
-                if (tabLayout.getSelectedTabPosition() == 0) {
-                    return super.getSwipeDirs(recyclerView, viewHolder);
-                } else {
-                    return 0;
-                }
+                return super.getSwipeDirs(recyclerView, viewHolder);
             }
         };
 
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(recyclerView);
     }
+
+    private void showReorderDialog(int position) {
+        new AlertDialog.Builder(this)
+                .setTitle("Reorder")
+                .setMessage("Would you like to add all items from this order back to your cart?")
+                .setPositiveButton("Yes, Reorder", (dialog, which) -> {
+                    reorderFromHistory(position);
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .create()
+                .show();
+    }
+
+    private void reorderFromHistory(int position) {
+        if (position >= displayedOrders.size()) return;
+
+        Order orderToReorder = displayedOrders.get(position);
+        if (orderToReorder.getTotalPrice() == 0) {
+            Toast.makeText(this, "Can not reorder a free order.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        List<CartItem> itemsToReorder = orderToReorder.getItems();
+
+        if (itemsToReorder == null || itemsToReorder.isEmpty()) {
+            Toast.makeText(this, "This order has no items to reorder.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        CartRepository cartRepo = CartRepository.getInstance();
+        for (CartItem item : itemsToReorder) {
+            if(item.getCoffeeProduct() != null) {
+                cartRepo.addItem(item);
+            }
+        }
+
+        Toast.makeText(this, "Items added back to your cart!", Toast.LENGTH_LONG).show();
+        startActivity(new Intent(MyOrdersActivity.this, CartActivity.class));
+    }
+
 
     private void setupTabLayout() {
         tabLayout.addTab(tabLayout.newTab().setText("On going"));

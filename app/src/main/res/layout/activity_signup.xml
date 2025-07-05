@@ -12,7 +12,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:text="Create Account"
         android:textColor="@android:color/black"
         android:textSize="28sp"
@@ -29,9 +29,19 @@
         android:id="@+id/userNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/edit_text_background"
         android:hint="Username"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/phoneEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="Phone Number"
+        android:inputType="number"
         android:padding="16dp" />
 
     <EditText
@@ -42,6 +52,16 @@
         android:background="@drawable/edit_text_background"
         android:hint="Email"
         android:inputType="textEmailAddress"
+        android:padding="16dp" />
+
+    <EditText
+        android:id="@+id/addressEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="Address (You can change it later)"
+        android:inputType="textPostalAddress"
         android:padding="16dp" />
 
     <EditText

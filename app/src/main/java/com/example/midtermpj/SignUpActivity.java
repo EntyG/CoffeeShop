@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText emailEditText, passwordEditText, usernameEditText, rePasswordEditText;
+    private EditText emailEditText, phoneEditText, addressEditText, passwordEditText, usernameEditText, rePasswordEditText;
     private Button signUpButton;
     private FirebaseAuth mAuth;
     private FirebaseFirestore db;
@@ -31,6 +31,8 @@ public class SignUpActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         usernameEditText = findViewById(R.id.userNameEditText);
+        phoneEditText = findViewById(R.id.phoneEditText);
+        addressEditText = findViewById(R.id.addressEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
         rePasswordEditText = findViewById(R.id.rePasswordEditText);
@@ -38,11 +40,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         signUpButton.setOnClickListener(v -> {
             String username = usernameEditText.getText().toString().trim();
+            String phone = phoneEditText.getText().toString().trim();
+            String address = addressEditText.getText().toString().trim();
             String email = emailEditText.getText().toString().trim();
             String password = passwordEditText.getText().toString().trim();
             String rePassword = rePasswordEditText.getText().toString().trim();
 
-            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(rePassword) || TextUtils.isEmpty(username)) {
+            if (TextUtils.isEmpty(email) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(address) || TextUtils.isEmpty(password) || TextUtils.isEmpty(rePassword) || TextUtils.isEmpty(username)) {
                 Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -56,7 +60,7 @@ public class SignUpActivity extends AppCompatActivity {
                     .addOnCompleteListener(this, task -> {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
-                            saveUserInFirestore(user, username, email);
+                            saveUserInFirestore(user, username, email, phone, address);
                         } else {
                             Toast.makeText(this, "Authentication failed: " + task.getException().getMessage(),
                                     Toast.LENGTH_LONG).show();
@@ -65,13 +69,15 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserInFirestore(FirebaseUser firebaseUser, String userName, String email) {
+    private void saveUserInFirestore(FirebaseUser firebaseUser, String userName, String email, String phone, String address) {
         if (firebaseUser == null) return;
         String userId = firebaseUser.getUid();
 
         Map<String, Object> user = new HashMap<>();
         user.put("username", userName);
         user.put("email", email);
+        user.put("phone", phone);
+        user.put("address", address);
 
         db.collection("users").document(userId)
                 .set(user)

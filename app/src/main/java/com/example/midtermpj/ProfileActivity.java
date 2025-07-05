@@ -63,11 +63,11 @@ public class ProfileActivity extends AppCompatActivity {
         TextView nameLabel = nameSection.findViewById(R.id.profile_item_label);
 
         nameIcon.setImageResource(R.drawable.name_icon);
-        nameLabel.setText("Full name");
+        nameLabel.setText("Username");
         nameValue = nameSection.findViewById(R.id.profile_item_value);
         nameValue.setText(currentUser.getUserName());
         nameSection.findViewById(R.id.profile_item_edit_button).setOnClickListener(v -> {
-            showEditDialog("Edit Full Name", currentUser.getUserName(), InputType.TYPE_CLASS_TEXT, newName -> {
+            showEditDialog("Edit Username", currentUser.getUserName(), InputType.TYPE_CLASS_TEXT, newName -> {
                 updateFieldInFirestore("username", newName, () -> {
                     currentUser.setUserName(newName);
                     nameValue.setText(newName);
